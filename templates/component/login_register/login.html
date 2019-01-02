@@ -7,14 +7,22 @@
             <h2 class="main-title-w3layouts mb-2 text-center text-white">Login</h2>
             <!--// main-heading -->
             <div class="form-body-w3-agile text-center w-lg-50 w-sm-75 w-100 mx-auto mt-5">
-                <form action="#" method="post" >
+                {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                <form action="{% url 'dashborad:doLogin' %}" method="post" >
+                    {% csrf_token %}
                     <div class="form-group">
                         <label>Login</label>
-                        <input type="text" class="form-control" placeholder="" required="">
+                        <input type="text" class="form-control" placeholder="" required="" name="login">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" placeholder="Password" required="">
+                        <input type="password" class="form-control" placeholder="Password" required="" name="password">
                     </div>
                     <div class="d-sm-flex justify-content-between">
                         <div class="form-check col-md-6 text-sm-left text-center">
@@ -30,9 +38,6 @@
                 <p class="paragraph-agileits-w3layouts mt-4">Don't have an account
                     <a href="{% url 'dashborad:registe' %}">Create an account</a>
                 </p>
-                <h1 class="paragraph-agileits-w3layouts mt-2">
-                    <a href="index.html">Back to Home</a>
-                </h1>
             </div>
             </div>
     </div>

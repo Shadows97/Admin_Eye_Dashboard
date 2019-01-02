@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% include 'layout/haut.html' %}
+</head>
+<body>
+<div class="se-pre-con"></div>
+    <div class="wrapper">
+{% include 'layout/toolsbar.html' %}
+
+
+
+{% block content %}
+
+{% endblock %}
+    {% include 'layout/bas.html' %}
+    </div>
+
+
+</body>
+</html>
