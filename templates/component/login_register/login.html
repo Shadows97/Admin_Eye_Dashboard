@@ -14,7 +14,7 @@
                     {% endfor %}
                     </ul>
                 {% endif %}
-                <form action="{% url 'dashborad:doLogin' %}" method="post" >
+                <form action="{% url 'dashborad:login' %}" method="post" >
                     {% csrf_token %}
                     <div class="form-group">
                         <label>Login</label>

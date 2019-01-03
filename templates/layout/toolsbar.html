@@ -223,7 +223,7 @@
                                     </div>
                                     <div class="profile-r align-self-center">
                                         <h3 class="sub-title-w3-agileits">{{ user.login }}</h3>
-                                        <a href="mailto:info@example.com">info@example.com</a>
+                                        <a href="mailto:{{ user.email }}">{{ user.email }}</a>
                                     </div>
                                 </div>
                                 <a href="#" class="dropdown-item mt-3">
@@ -247,7 +247,7 @@
                                         <i class="far fa-thumbs-up mr-3"></i>Support</h4>
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="login.html">Logout</a>
+                                <a class="dropdown-item" href="{% url 'dashborad:logout' %}">Logout</a>
                             </div>
                         </li>
                     </ul>
