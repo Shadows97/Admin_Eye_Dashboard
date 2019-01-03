@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'Admin_Eye_Dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'admin_eye_db',
+        'NAME': 'admin_eyedb',
         'USER': 'postgres',
         'PASSWORD':'passe',
         'HOST':'localhost',
