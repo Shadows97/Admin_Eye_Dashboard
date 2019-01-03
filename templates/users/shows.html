@@ -12,30 +12,33 @@
 
     {% endif %}
 <div class="outer-w3-agile mt-3">
-                    <h4 class="tittle-w3-agileits mb-4">Striped Rows</h4>
+                    <h4 class="tittle-w3-agileits mb-4">Utilisateurs</h4>
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Adresse IP</th>
-                                <th scope="col">Adresse MAC</th>
-                                <th scope="col">Etat</th>
+                                <th scope="col">Login</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Action</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                           {% for equipement in equipements %}
+                           {% for utilisateur in utilisateurs %}
                                 <tr>
-                                <th scope="row">{{ equipement.id }}</th>
-                                <td>{{ equipement.nom }}</td>
-                                <td>{{ equipement.adresse_ip }}</td>
-                                <td>{{ equipement.adresse_mac }}</td>
-                                <td>{{ equipement.etat }}</td>
+                                <th scope="row">{{ utilisateur.id }}</th>
+                                <td>{{ utilisateur.login }}</td>
+                                <td>{{ utilisateur.email }}</td>
+                                <td>{{ utilisateur.role }}</td>
+                                <td><a href="#"class="btn btn-success">Modifier</a> <a href="#"class="btn btn-danger">Supprimer</a></td>
+
+
                             </tr>
                            {% endfor %}
 
                         </tbody>
                     </table>
+            </div>
 
 {% endblock %}

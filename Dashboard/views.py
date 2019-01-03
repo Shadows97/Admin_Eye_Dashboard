@@ -15,7 +15,7 @@ def login(request):
         response = render(request, "component/login_register/login.html")
         if user.password == password:
             request.session['user_id'] = user.id
-            request.session.set_expiry(60)
+            request.session.set_expiry(500)
             response = redirect('dashborad:index')
 
     return response
@@ -80,4 +80,22 @@ def equipementShows(request):
     except:
         response = redirect('dashborad:login')
     return response
+
+def usersShows (request):
+    response = redirect('dashborad:login')
+    print("browser === " + str(request.user_agent.browser.family))
+    try:
+        id = request.session['user_id']
+        if id:
+            user = Utilisateur.objects.get(id=id)
+            utilisateurs = Utilisateur.objects.all()
+            context = {
+                'user': user,
+                'utilisateurs': utilisateurs
+            }
+            response = render(request, "users/shows.html", context)
+    except:
+        response = redirect('dashborad:login')
+    return response
+
 
