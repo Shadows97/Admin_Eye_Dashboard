@@ -98,4 +98,41 @@ def usersShows (request):
         response = redirect('dashborad:login')
     return response
 
+def usersEdit (request,id):
+    user = Utilisateur.objects.get(id=id)
+    context = {
+        'user':user
+    }
+    response = render(request, "users/edit.html",context)
+    try:
+        id = request.session['user_id']
+        if request.method == 'POST':
+            login = request.POST.get('login')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+            Utilisateur.objects.create(
+                login=login,
+                email=email,
+                password=password,
+                role="Admin"
+            )
+            messages.info(request, "Enregistrement éffectué")
+            response = redirect('dashborad:userShows')
+    except:
+        response = redirect('dashborad:login')
 
+    return response
+
+def deleteUser(request,id):
+    response = redirect('dashborad:userShows')
+    try:
+        ids = request.session['user_id']
+        if request.method == 'POST':
+            user = Utilisateur.objects.get(id=id)
+            user.delete()
+            messages.info(request, "Suppression éffectué")
+            response = redirect('dashborad:userShows')
+    except:
+        response = redirect('dashborad:login')
+
+    return response

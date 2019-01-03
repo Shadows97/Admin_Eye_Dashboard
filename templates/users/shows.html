@@ -5,7 +5,7 @@
     {% if messages %}
                     <ul class="messages">
                     {% for message in messages %}
-                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        <li {% if message.tags %}class="info success"{% endif %}>{{ message }}</li>
                     {% endfor %}
                     </ul>
 
@@ -31,7 +31,7 @@
                                 <td>{{ utilisateur.login }}</td>
                                 <td>{{ utilisateur.email }}</td>
                                 <td>{{ utilisateur.role }}</td>
-                                <td><a href="#"class="btn btn-success">Modifier</a> <a href="#"class="btn btn-danger">Supprimer</a></td>
+                                <td><a href="{% url 'dashborad:userEdit' id=utilisateur.id %}"class="btn btn-success">Modifier</a> <a href="{% url 'dashborad:userDelete' id=utilisateur.id %}"class="btn btn-danger">Supprimer</a></td>
 
 
                             </tr>
