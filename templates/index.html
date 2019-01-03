@@ -1,10 +1,6 @@
 {% extends 'model.html' %}
 {% load static %}
 
-{% block username %}
-    {{ user.login }}
-    {% endblock %}
-
 {% block content %}
     {% if messages %}
                     <ul class="messages">
