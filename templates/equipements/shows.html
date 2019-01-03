@@ -1,0 +1,48 @@
+{% extends 'model.html' %}
+{% load static %}
+
+{% block content %}
+    {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+
+
+    {% endif %}
+<div class="outer-w3-agile mt-3">
+                    <h4 class="tittle-w3-agileits mb-4">Contextual Classes Coloured Rows</h4>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <table class="table col-xl mr-xl-3">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Adresse IP</th>
+                                        <th scope="col">Adresse MAC</th>
+                                        <th scope="col">Etat</th>
+
+                                    </tr>
+                                </thead>
+                        <tbody>
+                           {% for equipement in equipements %}
+                                <tr class="{% if equipement.etat %} table-success{% else %}table-danger{% endif %}">
+                                <th scope="row">{{ equipement.id }}</th>
+                                <td>{{ equipement.nom }}</td>
+                                <td>{{ equipement.adresse_ip }}</td>
+                                <td>{{ equipement.adresse_mac }}</td>
+                                <td>{{ equipement.etat }}</td>
+                            </tr>
+                           {% endfor %}
+
+                        </tbody>
+                    </table>
+                         </div>
+                    </div>
+                </div>
+
+
+
+{% endblock %}

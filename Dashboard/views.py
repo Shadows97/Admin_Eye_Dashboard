@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from Dashboard.models import Utilisateur
+from Dashboard.models import *
 from django.contrib import messages
 
 # Create your views here.
@@ -15,7 +15,7 @@ def login(request):
         response = render(request, "component/login_register/login.html")
         if user.password == password:
             request.session['user_id'] = user.id
-            request.session.set_expiry(10)
+            request.session.set_expiry(60)
             response = redirect('dashborad:index')
 
     return response
@@ -55,9 +55,29 @@ def index (request):
 
     return response
 
+
 def logout(request):
     try:
         del request.session['user_id']
     except KeyError:
         pass
     return redirect('dashborad:login')
+
+
+def equipementShows(request):
+    response = redirect('dashborad:login')
+    print("browser === " + str(request.user_agent.browser.family))
+    try:
+        id = request.session['user_id']
+        if id:
+            user = Utilisateur.objects.get(id=id)
+            equipements = Equipement.objects.all()
+            context = {
+                'user': user,
+                'equipements':equipements
+            }
+            response = render(request, "equipements/shows.html", context)
+    except:
+        response = redirect('dashborad:login')
+    return response
+
