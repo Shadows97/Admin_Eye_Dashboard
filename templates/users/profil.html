@@ -1,0 +1,40 @@
+{% extends 'model.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+     <div class="row">
+        <div class="col-sm-3">
+            <ul class="list-group">
+
+                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Login: </strong></span> {{ user.login }}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email: </strong></span> {{ user.email }}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role: </strong></span>{{ user.role }}</li>
+
+            </ul>
+
+            <!--// Copyright -->
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
