@@ -34,7 +34,7 @@ def register(request):
             role="Admin"
         )
         messages.info(request,"Enregistrement éffectué")
-        response = redirect('dashborad:index')
+        response = redirect('dashborad:userShows')
 
     return response
 
@@ -110,12 +110,10 @@ def usersEdit (request,id):
             login = request.POST.get('login')
             email = request.POST.get('email')
             password = request.POST.get('password')
-            Utilisateur.objects.create(
-                login=login,
-                email=email,
-                password=password,
-                role="Admin"
-            )
+            user.login = login
+            user.password=password
+            user.email=email
+            user.save()
             messages.info(request, "Enregistrement éffectué")
             response = redirect('dashborad:userShows')
     except:
@@ -124,14 +122,30 @@ def usersEdit (request,id):
     return response
 
 def deleteUser(request,id):
-    response = redirect('dashborad:userShows')
+    response = None
     try:
         ids = request.session['user_id']
-        if request.method == 'POST':
-            user = Utilisateur.objects.get(id=id)
-            user.delete()
-            messages.info(request, "Suppression éffectué")
-            response = redirect('dashborad:userShows')
+        print(request.method)
+        Utilisateur.objects.get(id=id).delete()
+        messages.info(request, "Suppression éffectué")
+        response = redirect('dashborad:userShows')
+
+    except:
+        response = redirect('dashborad:login')
+
+    return response
+
+def profil(request) :
+    response = None
+    try:
+        ids = request.session['user_id']
+        user = Utilisateur.objects.get(id=ids)
+        context = {
+            'user':user
+        }
+        messages.info(request, "Suppression éffectué")
+        response = render(request,'users/profil.html',context)
+
     except:
         response = redirect('dashborad:login')
 

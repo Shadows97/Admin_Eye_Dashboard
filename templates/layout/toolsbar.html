@@ -41,6 +41,9 @@
                     </ul>
                 </li>
 
+            </ul>
+        </nav>
+<!--
                 <li>
                     <a href="charts.html">
                         <i class="fas fa-chart-pie"></i>
@@ -96,10 +99,7 @@
                         <i class="far fa-map"></i>
                         Maps
                     </a>
-                </li>
-            </ul>
-        </nav>
-
+                </li> -->
         <!-- Page Content Holder -->
         <div id="content">
             <!-- top-bar -->
@@ -112,10 +112,6 @@
                         </button>
                     </div>
                     <!-- Search-from -->
-                    <form action="#" method="post" class="form-inline mx-auto search-form">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required="">
-                        <button class="btn btn-style my-2 my-sm-0" type="submit">Search</button>
-                    </form>
                     <!--// Search-from -->
                     <ul class="top-icons-agileits-w3layouts float-right">
                         <li class="nav-item dropdown">
@@ -210,25 +206,13 @@
                                         <a href="mailto:{{ user.email }}">{{ user.email }}</a>
                                     </div>
                                 </div>
-                                <a href="#" class="dropdown-item mt-3">
+                                <a href="{% url 'dashborad:userProfil' %}" class="dropdown-item mt-3">
                                     <h4>
                                         <i class="far fa-user mr-3"></i>My Profile</h4>
                                 </a>
                                 <a href="#" class="dropdown-item mt-3">
                                     <h4>
                                         <i class="fas fa-link mr-3"></i>Activity</h4>
-                                </a>
-                                <a href="#" class="dropdown-item mt-3">
-                                    <h4>
-                                        <i class="far fa-envelope mr-3"></i>Messages</h4>
-                                </a>
-                                <a href="#" class="dropdown-item mt-3">
-                                    <h4>
-                                        <i class="far fa-question-circle mr-3"></i>Faq</h4>
-                                </a>
-                                <a href="#" class="dropdown-item mt-3">
-                                    <h4>
-                                        <i class="far fa-thumbs-up mr-3"></i>Support</h4>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'dashborad:logout' %}">Logout</a>
