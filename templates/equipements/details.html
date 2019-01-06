@@ -1,30 +1,10 @@
-var endPoint =" api/info/1"
-var data = {
-        labels: label,
-        datasets: [{
-            label: '# of Votes',
-            data: defaultData,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1,
+{% extends 'model.html' %}
+{% load static %}
 
-        }]
-    }
-    var option = {
+
+    {% block script %}
+        <script>
+        var option = {
   maintainAspectRatio: false,
   scales: {
       scaleLabel:{
@@ -47,7 +27,8 @@ var data = {
     }]
   }
 }
-        var defaultData = []
+        var endPoint =" api/info/{{ equipement.id }}"
+          var defaultData = []
         var cpu_data = []
         var cpu_lable = []
         var label = []
@@ -61,8 +42,7 @@ var data = {
         var myChart3 = null
         var myChart4 = null
 
-         function first() {
-            $.ajax({
+        $.ajax({
             method :'GET',
             url :endPoint,
             success:function (data) {
@@ -90,14 +70,6 @@ var data = {
 
             }
         });
-        }
-        first();
-
-
-
-
-
-
 
 
   function setChart() {
@@ -246,3 +218,35 @@ var data = {
     myChart3.data.datasets[0].data.push(50);
     myChart3.update();
 }
+        </script>
+
+
+
+
+    {% endblock %}
+
+{% block content %}
+    {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+    {% endif %}
+       <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="Chart"></canvas>
+</div>
+
+     <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="cpuChart"></canvas>
+</div>
+
+    <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="ramChart"></canvas>
+</div>
+     <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="bandeChart"></canvas>
+</div>
+
+
+{% endblock %}

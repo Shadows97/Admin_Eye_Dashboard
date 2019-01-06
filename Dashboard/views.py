@@ -19,7 +19,7 @@ def login(request):
         message = "Login ou mot de passe incorrecte"
         if user.password == password:
             request.session['user_id'] = user.id
-            #request.session.set_expiry(3600)
+            request.session.set_expiry(3600)
             response = redirect('dashborad:index')
         else:
             messages.error(request, message)
@@ -58,7 +58,7 @@ def index (request):
                 'user': user,
             }
             response = render(request, "index.html", context)
-    except:
+    except KeyError:
         response = redirect('dashborad:login')
 
     return response
@@ -77,15 +77,20 @@ def equipementShows(request):
     print("browser === " + str(request.user_agent.browser.family))
     try:
         id = request.session['user_id']
-        if id:
+        if id != None:
+            print(1)
             user = Utilisateur.objects.get(id=id)
             equipements = Equipement.objects.all()
+            print("user "+str(user.login))
+            print("equip "+str(equipements.last().id))
+
             context = {
                 'user': user,
                 'equipements':equipements
             }
             response = render(request, "equipements/shows.html", context)
-    except:
+    except KeyError:
+        print(2)
         response = redirect('dashborad:login')
     return response
 
@@ -102,7 +107,7 @@ def usersShows (request):
                 'utilisateurs': utilisateurs
             }
             response = render(request, "users/shows.html", context)
-    except:
+    except KeyError:
         response = redirect('dashborad:login')
     return response
 
@@ -124,7 +129,7 @@ def usersEdit (request,id):
             user.save()
             messages.info(request, "Enregistrement éffectué")
             response = redirect('dashborad:userShows')
-    except:
+    except KeyError:
         response = redirect('dashborad:login')
 
     return response
@@ -138,7 +143,7 @@ def deleteUser(request,id):
         messages.info(request, "Suppression éffectué")
         response = redirect('dashborad:userShows')
 
-    except:
+    except KeyError:
         response = redirect('dashborad:login')
 
     return response
@@ -154,7 +159,7 @@ def profil(request) :
         messages.info(request, "Suppression éffectué")
         response = render(request,'users/profil.html',context)
 
-    except:
+    except KeyError:
         response = redirect('dashborad:login')
 
     return response
@@ -165,32 +170,71 @@ def disk_data(request):
     serialize = Disk_Info_Serializer(data,Many=False)
     return JsonResponse(serialize.data,safe=False)
 
-class Disk_data(APIView):
+def getInfo(request,id):
+    disk = Disk_info.objects.filter(equipement_id=id).last()
+    cpu = Cpu_info.objects.filter(equipement_id=id).last()
+    ram = Ram_info.objects.filter(equipement_id=id).last()
+    byte = Interface_data_info.objects.filter(equipement_id=id).last()
+    disk_labels = ["total", "used", "free"]
+    cpu_lables = ["current", "min", "max"]
+    byte_label = ["send"]
+    cpu_infos = [cpu.cpu_current_freq, cpu.cpu_min_freq, cpu.cpu_max_freq]
+    info = [convert1(disk.total_size), convert1(disk.size_used), convert1(disk.size_free)]
+    ram_info = [convert1(ram.ram_total), convert1(ram.ram_used), convert1(ram.ram_free)]
+    byte_info1 = [convert2(byte.byte_send), convert2(byte.byte_recv)]
+    byte_info2 = [convert2(byte.byte_recv), 5]
+    data = {
+        'label': disk_labels,
+        'default': info,
+        'cpuLabel': cpu_lables,
+        'cpuInfo': cpu_infos,
+        'ramInfo': ram_info,
+        'byteLabel': byte_label,
+        'byteInfo1': byte_info1,
+        'byteInfo2': byte_info2
+    }
+    return JsonResponse(data)
 
-    authentication_classes = []
-    permission_classes = []
 
-    def get(self, request, format=None):
-        disk = Disk_info.objects.last()
-        cpu = Cpu_info.objects.last()
-        ram = Ram_info.objects.last()
-        byte = Interface_data_info.objects.last()
-        disk_labels = ["total","used","free"]
-        cpu_lables = ["current","min","max"]
-        byte_label = ["send"]
-        cpu_infos = [cpu.cpu_current_freq,cpu.cpu_min_freq,cpu.cpu_max_freq]
-        info = [convert1(disk.total_size), convert1(disk.size_used), convert1(disk.size_free)]
-        ram_info = [convert1(ram.ram_total),convert1(ram.ram_used),convert1(ram.ram_free)]
-        byte_info1 = [convert2(byte.byte_send),5]
-        byte_info2 = [convert2(byte.byte_recv),5]
-        data = {
-            'label':disk_labels,
-            'default':info,
-            'cpuLabel':cpu_lables,
-            'cpuInfo':cpu_infos,
-            'ramInfo':ram_info,
-            'byteLabel':byte_label,
-            'byteInfo1':byte_info1,
-            'byteInfo2':byte_info2
+
+def equipementDetail(request,id) :
+    response = None
+    try:
+        ids = request.session['user_id']
+        equipement = Equipement.objects.get(id=id)
+        user = Utilisateur.objects.get(id=ids)
+        context = {
+            'equipement':equipement,
+            'user': user,
         }
-        return Response(data)
+        response = render(request,'equipements/details.html',context)
+
+    except KeyError:
+        response = redirect('dashborad:login')
+
+    return response
+
+def scanPort(request,id):
+    response = None
+    test =[]
+    try:
+        ids = request.session['user_id']
+        user = Utilisateur.objects.get(id=ids)
+        equipement = Equipement.objects.get(id=id)
+        resultat = portScan(equipement.adresse_ip)
+        for resultats in resultat:
+            test.append(resultat[resultats])
+        context = {
+            'equipement': equipement,
+            'resultats':test,
+            'user': user
+        }
+        response = render(request, 'equipements/portScan.html', context)
+
+    except KeyError:
+        response = redirect('dashborad:login')
+
+    return response
+
+
+

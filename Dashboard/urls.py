@@ -13,6 +13,10 @@ urlpatterns = [
     path('users/show/<id>', views.usersEdit, name='userEdit'),
     path('users/delete/<id>', views.deleteUser, name='userDelete'),
     path('users/profile', views.profil, name='userProfil'),
-    path('api/disk', views.Disk_data.as_view()),
+    path('equipements/detail/api/info/<id>', views.getInfo,name = 'api'),
+    #path('api/info/', views.Disk_data.as_view(), name='api1'),
+
+    path('equipements/detail/<id>', views.equipementDetail,name = 'equipementDetails'),
+    path('equipements/portScan/<id>', views.scanPort, name='equipementPortScan'),
 
 ]
