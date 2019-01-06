@@ -13,5 +13,6 @@ urlpatterns = [
     path('users/show/<id>', views.usersEdit, name='userEdit'),
     path('users/delete/<id>', views.deleteUser, name='userDelete'),
     path('users/profile', views.profil, name='userProfil'),
+    path('api/disk', views.Disk_data.as_view()),
 
 ]
