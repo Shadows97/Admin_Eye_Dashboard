@@ -1,6 +1,13 @@
 {% extends 'model.html' %}
 {% load static %}
 
+
+    {% block script %}
+        <script src="{% static 'js/diskChart.js' %}"></script>
+
+
+    {% endblock %}
+
 {% block content %}
     {% if messages %}
                     <ul class="messages">
@@ -9,6 +16,20 @@
                     {% endfor %}
                     </ul>
     {% endif %}
+       <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="Chart"></canvas>
+</div>
+
+     <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="cpuChart"></canvas>
+</div>
+
+    <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="ramChart"></canvas>
+</div>
+     <div class="chart-container" style="position: relative; height:50vh; width:50vw">
+    <canvas id="bandeChart"></canvas>
+</div>
 
 
 {% endblock %}

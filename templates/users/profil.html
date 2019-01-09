@@ -3,20 +3,41 @@
 
 {% block content %}
 <body>
-     <div class="row">
-        <div class="col-sm-3">
-            <ul class="list-group">
 
-                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Login: </strong></span> {{ user.login }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email: </strong></span> {{ user.email }}</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role: </strong></span>{{ user.role }}</li>
 
-            </ul>
+    <div class="outer-w3-agile mt-3">
+                    <div class="table-responsive">
+                            <table class="table col-xl mr-xl-3">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Profil</th>
+                                        <th scope="col"></th>
 
-            <!--// Copyright -->
-        </div>
-    </div>
+                                    </tr>
+                                </thead>
+                        <tbody>
+                                <tr class="">
+                                    <th scope="row">Login</th>
+                                    <td>{{ user.login }}</td>
+
+                                </tr>
+                                <tr class="">
+                                    <th scope="row">Email</th>
+                                    <td>{{ user.email }}</td>
+
+                                </tr>
+                                 <tr class="">
+                                    <th scope="row">Role</th>
+                                    <td>{{ user.role }}</td>
+
+                                </tr>
+
+
+                        </tbody>
+                    </table>
+                         </div>
+                    </div>
+
 
 
 {% endblock %}

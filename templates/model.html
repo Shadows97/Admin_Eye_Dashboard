@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
    {% include 'layout/haut.html' %}
+
+
 </head>
 <body>
 <div class="se-pre-con"></div>
@@ -14,7 +16,19 @@
 {% block content %}
 
 {% endblock %}
+      <!-- Copyright -->
+            <div class="copyright-w3layouts py-xl-3 py-2 mt-xl-5 mt-4 text-center">
+                <p>© 2018 Modernize . All Rights Reserved | Design by
+                    <a href="http://w3layouts.com/"> W3layouts </a>
+                </p>
+            </div>
     {% include 'layout/bas.html' %}
+    {% block script %}{% endblock %}
+    <script>
+    $(document).ready(function () {
+        {% block jquery %}{% endblock %}
+    })
+</script>
     </div>
 
 

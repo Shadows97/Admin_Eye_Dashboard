@@ -13,8 +13,7 @@
     {% endif %}
 <div class="outer-w3-agile mt-3">
                     <h4 class="tittle-w3-agileits mb-4">Equipements</h4>
-                    <div class="container-fluid">
-                        <div class="row">
+                    <div class="table-responsive">
                             <table class="table col-xl mr-xl-3">
                                 <thead>
                                     <tr>
@@ -35,7 +34,7 @@
                                 <td>{{ equipement.adresse_ip }}</td>
                                 <td>{{ equipement.adresse_mac }}</td>
                                 <td>{{ equipement.etat }}</td>
-                                 <td><a href="#"class="btn btn-outline-info">Détaile</a> </td>
+                                 <td><a href="{% url 'dashborad:equipementDetails' id=equipement.id%}"class="btn btn-outline-info">Détaile</a> <a href="{% url 'dashborad:equipementPortScan' id=equipement.id%}"class="btn btn-dark">Scan Port</a></td>
 
                             </tr>
                            {% endfor %}
@@ -44,7 +43,7 @@
                     </table>
                          </div>
                     </div>
-                </div>
+
 
 
 

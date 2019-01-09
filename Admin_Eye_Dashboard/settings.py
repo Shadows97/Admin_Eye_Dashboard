@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django_user_agents',
 
     'Dashboard',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
