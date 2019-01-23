@@ -29,7 +29,7 @@ def convert2 (n):
 def portScan (host):
     rapport = {}
     try:
-        for port in range(1, 9090):
+        for port in range(1, 60438):
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             result = sock.connect_ex((host, port))
             if result == 0:
