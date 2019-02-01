@@ -26,53 +26,42 @@
       }
     }]
   }
-};
-        var N = 10;
-        // Array filled with N values at '0'
-        var zero_array = [];
-
-        for (i = 0; i < N; i++)
-            zero_array.push(0);
-
-        var endPoint =" api/info/{{ equipement.id }}";
-          var defaultData = [];
-        var cpu_data = [];
-        var cpu_lable = [];
-        var label = [];
-        var ram_data = [];
-        var byte_dat1 = [];
-        var byte_dat2 = [];
-        var byte_label1 = [];
-        var byte_label2 = [];
-        var myChart1 = null;
-        var myChart2 = null;
-        var myChart3 = null;
-        var myChart4 = null;
+}
+        var endPoint =" api/info/{{ equipement.id }}"
+          var defaultData = []
+        var cpu_data = []
+        var cpu_lable = []
+        var label = []
+        var ram_data = []
+        var byte_dat1 = []
+        var byte_dat2 = []
+        var byte_label1 = []
+        var byte_label2 = []
+        var myChart1 = null
+        var myChart2 = null
+        var myChart3 = null
+        var myChart4 = null
 
         $.ajax({
             method :'GET',
             url :endPoint,
             success:function (data) {
-
-                window.onload =function main () {
-                    label = data.label;
-                defaultData = data.default;
-                cpu_lable =data.cpuLabel;
-                cpu_data = data.cpuInfo;
-                ram_data = data.ramInfo;
-                byte_dat1 = data.byteInfo1;
-                zero_array = data.byteInfo2;
-                setChart();
-                setCpuChart();
-                setRamChart();
-                setByteChart();
-                setBandeChart();
-                console.log(data);
-                rand_value();
-                interval= window.setTimeout(rand_value,2000);
+                label = data.label
+                defaultData = data.default
+                cpu_lable =data.cpuLabel
+                cpu_data = data.cpuInfo
+                ram_data = data.ramInfo
+                byte_dat1 = data.byteInfo1
+                byte_dat2 = data.byteInfo2
+                console.log(data)
+                window.onload =function () {
+                    setChart();
+                    setCpuChart();
+                    setRamChart();
+                    setByteChart();
 
 
-                 };
+                }
               // interval= setTimeout(first,5000)
 
             },
@@ -87,7 +76,7 @@
       var ctx = document.getElementById("Chart").getContext('2d');
       ctx.canvas.width = 100;
         ctx.canvas.height = 100;
-    var myChart1 = new Chart(ctx, {
+     myChart1 = new Chart(ctx, {
     type: 'pie',
     data:  {
         labels: label,
@@ -124,7 +113,7 @@
       var ctx = document.getElementById("cpuChart").getContext('2d');
       ctx.canvas.width = 100;
         ctx.canvas.height = 100;
-   var  myChart2 = new Chart(ctx, {
+     myChart2 = new Chart(ctx, {
     type: 'line',
     data:  {
         labels: cpu_lable,
@@ -157,7 +146,7 @@
       var ctx = document.getElementById("ramChart").getContext('2d');
       ctx.canvas.width = 100;
         ctx.canvas.height = 100;
-   var  myChart3 = new Chart(ctx, {
+     myChart3 = new Chart(ctx, {
     type: 'line',
     data: {
         labels: label,

@@ -48,3 +48,4 @@ class Ram_info (models.Model) :
 
 
 
+
