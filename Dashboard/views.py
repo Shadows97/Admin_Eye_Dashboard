@@ -182,7 +182,7 @@ def getInfo(request,id):
     info = [convert1(disk.total_size), convert1(disk.size_used), convert1(disk.size_free)]
     ram_info = [convert1(ram.ram_total), convert1(ram.ram_used), convert1(ram.ram_free)]
     byte_info1 = [convert2(byte.byte_send), convert2(byte.byte_recv)]
-    byte_info2 = [convert2(byte.byte_recv+byte.byte_send)]
+    byte_info2 = [convert2(byte.byte_recv), 5]
     data = {
         'label': disk_labels,
         'default': info,
