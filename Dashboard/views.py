@@ -54,8 +54,10 @@ def index (request):
         print("id "+str(id))
         if id:
             user = Utilisateur.objects.get(id=id)
+            alerts = Alert.objects.filter(status=False)
             context = {
                 'user': user,
+                'notif':alerts,
             }
             response = render(request, "index.html", context)
     except KeyError:
@@ -81,12 +83,11 @@ def equipementShows(request):
             print(1)
             user = Utilisateur.objects.get(id=id)
             equipements = Equipement.objects.all()
-            print("user "+str(user.login))
-            print("equip "+str(equipements.last().id))
-
+            alerts = Alert.objects.filter(status=False)
             context = {
                 'user': user,
-                'equipements':equipements
+                'equipements':equipements,
+                'notif':alerts,
             }
             response = render(request, "equipements/shows.html", context)
     except KeyError:
@@ -102,9 +103,11 @@ def usersShows (request):
         if id:
             user = Utilisateur.objects.get(id=id)
             utilisateurs = Utilisateur.objects.all()
+            alerts = Alert.objects.filter(status=False)
             context = {
                 'user': user,
-                'utilisateurs': utilisateurs
+                'utilisateurs': utilisateurs,
+                'notif':alerts,
             }
             response = render(request, "users/shows.html", context)
     except KeyError:
@@ -113,8 +116,10 @@ def usersShows (request):
 
 def usersEdit (request,id):
     user = Utilisateur.objects.get(id=id)
+    alerts = Alert.objects.filter(status=False)
     context = {
-        'user':user
+        'user':user,
+        'notif':alerts,
     }
     response = render(request, "users/edit.html",context)
     try:
@@ -153,8 +158,10 @@ def profil(request) :
     try:
         ids = request.session['user_id']
         user = Utilisateur.objects.get(id=ids)
+        alerts = Alert.objects.filter(status=False)
         context = {
-            'user':user
+            'user':user,
+            'notif':alerts,
         }
         messages.info(request, "Suppression éffectué")
         response = render(request,'users/profil.html',context)
@@ -178,7 +185,7 @@ def getInfo(request,id):
     disk_labels = ["total", "used", "free"]
     cpu_lables = ["current", "min", "max"]
     byte_label = ["send"]
-    cpu_infos = [cpu.cpu_current_freq, cpu.cpu_min_freq, cpu.cpu_max_freq]
+    cpu_infos = cpu.cpu_current_freq
     info = [convert1(disk.total_size), convert1(disk.size_used), convert1(disk.size_free)]
     ram_info = [convert1(ram.ram_total), convert1(ram.ram_used), convert1(ram.ram_free)]
     byte_info1 = [convert2(byte.byte_send), convert2(byte.byte_recv)]
@@ -195,7 +202,15 @@ def getInfo(request,id):
     }
     return JsonResponse(data)
 
+def getAlert(request):
+    alerts = Alert.objects.filter(status=False)
+    nmbre = alerts.count()
+    print(nmbre)
+    alertsData = {
+        'nombre':nmbre,
 
+    }
+    return JsonResponse(alertsData)
 
 def equipementDetail(request,id) :
     response = None
@@ -203,9 +218,11 @@ def equipementDetail(request,id) :
         ids = request.session['user_id']
         equipement = Equipement.objects.get(id=id)
         user = Utilisateur.objects.get(id=ids)
+        alerts = Alert.objects.filter(status=False)
         context = {
             'equipement':equipement,
             'user': user,
+            'notif':alerts,
         }
         response = render(request,'equipements/details.html',context)
 
@@ -222,12 +239,14 @@ def scanPort(request,id):
         user = Utilisateur.objects.get(id=ids)
         equipement = Equipement.objects.get(id=id)
         resultat = portScan(equipement.adresse_ip)
+        alerts = Alert.objects.filter(status=False)
         for resultats in resultat:
             test.append(resultat[resultats])
         context = {
             'equipement': equipement,
             'resultats':test,
-            'user': user
+            'user': user,
+            'notif':alerts,
         }
         response = render(request, 'equipements/portScan.html', context)
 

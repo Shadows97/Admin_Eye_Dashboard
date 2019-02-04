@@ -18,5 +18,11 @@ urlpatterns = [
 
     path('equipements/detail/<id>', views.equipementDetail,name = 'equipementDetails'),
     path('equipements/portScan/<id>', views.scanPort, name='equipementPortScan'),
+    path ('equipements/all/notification/nombre',views.getAlert,name = 'notification'),
+    path ('equipements/detail/notification/nombre',views.getAlert,name = 'notification'),
+    path ('notification/nombre',views.getAlert,name = 'notification'),
+    path ('users/profile/notification/nombre',views.getAlert,name = 'notification'),
+    path ('users/show/<id>/notification/nombre',views.getAlert,name = 'notification'),
+    path ('users/all/notification/nombre',views.getAlert,name = 'notification'),
 
 ]

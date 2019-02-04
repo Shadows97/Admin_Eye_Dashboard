@@ -1,11 +1,4 @@
-{% extends 'model.html' %}
-{% load static %}
-
-
-    {% block script %}
-
-        <script>
-        let cpuChart = document.getElementById("cpuChart");
+let cpuChart = document.getElementById("cpuChart");
 let diskMemoryChart = document.getElementById("diskMemoryChart");
 let ramChart = document.getElementById("ramChart");
 let bandeChart = document.getElementById("bandeChart");
@@ -36,13 +29,12 @@ function lineChartConfig(optionParametersValues){
 	};
 }
 
-function ajaxDataGetter(){
+function ajaxDataGetter(equipementURL){
 	$.ajax({
 		method :'GET',
-		url: endPoint,
+		url: equipementURL,
 		success: function(data){
-		    console.log(data.cpuInfo);
-			getData(data.cpuInfo);
+			return data;
 		},
 		error: function(){
 			console.log("Error....")
@@ -58,7 +50,7 @@ function createLineChart(element, chartParametersValues){
 		    datasets: [
 		      {
 		        data: [],
-		        label: chartParametersValues.data.label,
+		        label: chartParametersValues.data.Label,
 		        borderColor: "#3e95cd",
 		        fill: false,
 		        pointRadius: 2,
@@ -89,7 +81,11 @@ lineChartParametersValues = {
 let contextChartLine1 = createLineChart(cpuChart, lineChartParametersValues); //CPU Initialization
 
 
-var getData = function(ajaxData) {
+var getData = function() {
+
+  let ajaxData = ajaxDataGetter(endPoint);
+
+
 
   //CPU Chart Section Start
   let onlyLineOfChartLine1 = contextChartLine1.data.datasets[0];
@@ -99,51 +95,14 @@ var getData = function(ajaxData) {
     dataOfOnlyLineOfChartLine1.pop();
     onlyLineOfChartLine1.pointBackgroundColor.pop();
   }
-  let theData = ajaxData;
-  dataOfOnlyLineOfChartLine1.unshift(theData);
-  console.log(theData);
+  dataOfOnlyLineOfChartLine1.unshift(ajaxData.cpuData);
 
   onlyLineOfChartLine1.pointBackgroundColor.unshift("#"+Math.floor(Math.random()*16777215).toString(16));
   //CPU Chart Section End
 
-    console.error(ajaxData)
-  contextChartLine1.update();
+
+  myChart.update();
 
 }
 
-setInterval(ajaxDataGetter, 1000);
-        </script>
-
-
-
-
-    {% endblock %}
-
-{% block content %}
-    {% if messages %}
-                    <ul class="messages">
-                    {% for message in messages %}
-                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-    {% endif %}
-       <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="Chart"></canvas>
-</div>
-
-     <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="cpuChart"></canvas>
-</div>
-
-    <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="ramChart"></canvas>
-</div>
-     <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="byteChart"></canvas>
-</div>
-     <div class="chart-container" style="position: relative; height:40vh; width:40vw" onclick="rand_value()">
-    <canvas id="bandeChart"></canvas>
-</div>
-
-
-{% endblock %}
+setInterval(getData, 1000);

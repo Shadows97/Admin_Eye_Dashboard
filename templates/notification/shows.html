@@ -1,0 +1,290 @@
+{% extends 'model.html' %}
+{% load static %}
+
+
+
+{% block content %}
+    {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+    {% endif %}
+    <!-- main-heading -->
+            <h2 class="main-title-w3layouts mb-2 text-center">Mailbox</h2>
+            <!--// main-heading -->
+
+            <!-- Inbox Page -->
+            <!-- Inbox topnav -->
+
+
+            <!-- Inbox content -->
+            <!--// Inbox content -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="index-lcontent col-xl-6">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <!-- left-strip -->
+                                <div class="inbox-side-strip-w3-agileits px-2 py-3 col-3">
+                                    <ul class="text-center">
+                                        <li>
+                                            <img src="images/profile.jpg" class="img-fluid rounded-circle" alt="Responsive image">
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-inbox"></i>
+                                            </a>
+                                            Inbox
+                                            <span class="badge">4</span>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="far fa-paper-plane"></i>
+                                            </a>
+                                            Draft
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fas fa-redo-alt"></i>
+                                            </a>
+                                            Outbox
+                                            <span class="badge">6</span>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="far fa-share-square"></i>
+                                            </a>
+                                            Sent
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="far fa-trash-alt"></i>
+                                            </a>
+                                            Trash
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- //left-strip -->
+
+                                <!-- right-strip -->
+
+                                <div class="email-list col-9">
+                                    <ul class="collection">
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <i class="fas fa-users text-primary align-self-center mr-3"></i>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Social</span>
+                                                <p class="paragraph-agileits-w3layouts">You have Google+ request from john doe.</p>
+                                            </div>
+                                            <a href="#" class="ml-2">
+                                                <span class="badge badge-secondary bg-primary">4 New</span>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <i class="fas fa-tag text-success mr-3"></i>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Promotions</span>
+                                                <p class="paragraph-agileits-w3layouts">Amazon, Flipkart 50% off on summer sale.</p>
+                                            </div>
+                                            <a href="#" class="secondary-content">
+                                                <span class="badge badge-secondary bg-success">5 New</span>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <i class="fas fa-exclamation-circle text-warning mr-3"></i>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Updates</span>
+                                                <p class="paragraph-agileits-w3layouts">Google play application updates for your mobile.</p>
+                                            </div>
+                                            <a href="#" class="secondary-content">
+                                                <span class="badge badge-secondary bg-warning">2 New</span>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <span class="circle mr-3">A</span>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Amazon.com</span>
+                                                <p class="paragraph-agileits-w3layouts">Summer sale is now going on.</p>
+                                            </div>
+                                            <a href="#" class="email-time">
+                                                <small class="text-primary">12:10 am</small>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item selected d-flex justify-content-between">
+                                            <img src="images/profile.jpg" alt="" class="img-fluid mr-3">
+                                            <div class="mid-cn">
+                                                <span class="email-title">Andy Brown</span>
+                                                <p class="paragraph-agileits-w3layouts">Hay Joe, we have next project for this summer.</p>
+                                            </div>
+                                            <a href="#" class="email-time">
+                                                <i class="mdi-editor-attach-file attach-file"></i>
+                                                <small class="text-secondary">12:10 am</small>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <span class="circle mr-3">T</span>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Tuts+</span>
+                                                <p class="paragraph-agileits-w3layouts">Update your code skill, free tutorial for web development.</p>
+                                            </div>
+                                            <a href="#" class="email-time">
+                                                <small class="text-primary">2:05 am</small>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <span class="circle mr-3 bg-primary">F</span>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Facebook.com</span>
+                                                <p class="paragraph-agileits-w3layouts">You have new friend request from emy nelson.</p>
+                                            </div>
+                                            <a href="#" class="email-time">
+                                                <small class="text-primary">1:15 pm</small>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <span class="circle mr-3 bg-dark">T</span>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Twitter</span>
+                                                <p class="paragraph-agileits-w3layouts">You have 5 new followers today, let's check it out.</p>
+                                            </div>
+                                            <a href="#" class="email-time">
+                                                <small class="text-primary">8:30 pm</small>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <span class="circle mr-3">E</span>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Envato Studio</span>
+                                                <p class="paragraph-agileits-w3layouts">Envato Studio Provider News : Score the new stuff.</p>
+                                            </div>
+                                            <a href="#" class="email-time">
+                                                <small class="text-primary">5:18 am</small>
+                                            </a>
+                                        </li>
+                                        <li class="collection-item d-flex justify-content-between">
+                                            <span class="circle mr-3">G</span>
+                                            <div class="mid-cn">
+                                                <span class="email-title">Gmail</span>
+                                                <p class="paragraph-agileits-w3layouts">You have 5 new mail today.</p>
+                                            </div>
+                                            <a href="#" class="email-time">
+                                                <small class="text-primary">6:38 am</small>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- right-strip -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index-rcontent col-xl-6 mt-xl-0 mt-3">
+                        <div class="outer-w3-agile">
+                            <p class="paragraph-agileits-w3layouts font-weight-bold">New app design for iPhone
+                                <mark>inbox</mark>
+                                <mark>projects
+                                </mark>
+                                <i class="mdi-action-star-rate yellow-text text-darken-3 right"></i>
+                            </p>
+                            <hr class="grey-text text-lighten-2">
+                            <div class="email-content-wrap">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <ul class="collection">
+                                            <li class="collection-item selected d-flex justify-content-between">
+                                                <img src="images/profile.jpg" alt="" class="rounded-circle mr-3">
+                                                <div class="mid-cn">
+                                                    <span class="email-title">Andy Brown</span>
+                                                    <br>
+                                                    <small class="text-primary">To me, John Doe</small>
+                                                    <br>
+                                                    <small class="text-primary">Yesterday</small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-3 email-actions d-flex justify-content-end">
+                                        <a href="#" class="mr-4">
+                                            <i class="fas fa-reply"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="email-content">
+                                    <p class="paragraph-agileits-w3layouts">Hi Mike,</p>
+                                    <p class="paragraph-agileits-w3layouts">Sed ut perspiciatis unde omnis iste natus error.</p>
+                                    <p class="paragraph-agileits-w3layouts">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                                    <p class="paragraph-agileits-w3layouts font-weight-normal">Cheers!
+                                        <br>Andy Brown</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="email-content-wrap">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <ul class="collection">
+                                            <li class="collection-item d-flex justify-content-between">
+                                                <span class="circle mr-3">M</span>
+                                                <div class="mid-cn">
+                                                    <span class="email-title">Mike Parker</span>
+                                                    <br>
+                                                    <small class="text-primary">To Andy Brown</small>
+                                                    <br>
+                                                    <small class="text-primary">6:10 pm</small>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-3 email-actions d-flex justify-content-end">
+                                        <a href="#" class="mr-3">
+                                            <i class="fas fa-reply"></i>
+                                        </a>
+                                        <a href="#">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="email-content">
+                                    <p class="paragraph-agileits-w3layouts">Hi Andy,</p>
+                                    <p class="paragraph-agileits-w3layouts">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                                        consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                                    <p class="paragraph-agileits-w3layouts">Regards,
+                                        <br>Mike Parker</p>
+                                </div>
+                            </div>
+                            <div class="email-reply mt-4">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <a href="#">
+                                            <i class="fas fa-reply"></i>
+                                        </a>
+                                        <small class="d-block text-secondary">Reply</small>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a href="#">
+                                            <i class="fas fa-reply-all"></i>
+                                        </a>
+                                        <small class="d-block text-secondary">Reply all</small>
+                                    </div>
+                                    <div class="col text-center">
+                                        <a href="#">
+                                            <i class="fas fa-forward"></i>
+                                        </a>
+                                        <small class="d-block text-secondary">Forward</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+{% endblock %}

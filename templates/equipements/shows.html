@@ -1,6 +1,8 @@
 {% extends 'model.html' %}
 {% load static %}
 
+{% block title %}Liste des équipements{% endblock %}
+
 {% block content %}
     {% if messages %}
                     <ul class="messages">
@@ -33,7 +35,7 @@
                                 <td>{{ equipement.nom }}</td>
                                 <td>{{ equipement.adresse_ip }}</td>
                                 <td>{{ equipement.adresse_mac }}</td>
-                                <td>{{ equipement.etat }}</td>
+                                <td>{% if equipement.etat %} Actif{% else %}Inatif{% endif %}</td>
                                  <td><a href="{% url 'dashborad:equipementDetails' id=equipement.id%}"class="btn btn-outline-info">Détaile</a> <a href="{% url 'dashborad:equipementPortScan' id=equipement.id%}"class="btn btn-dark">Scan Port</a></td>
 
                             </tr>

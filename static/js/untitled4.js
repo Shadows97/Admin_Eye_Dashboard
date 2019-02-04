@@ -1,23 +1,16 @@
-{% extends 'model.html' %}
-{% load static %}
 
-
-    {% block script %}
-
-        <script>
-        let cpuChart = document.getElementById("cpuChart");
-let diskMemoryChart = document.getElementById("diskMemoryChart");
-let ramChart = document.getElementById("ramChart");
-let bandeChart = document.getElementById("bandeChart");
+let cpuChart = document.getElementById("cpuChart").getContext('2d');
+let diskMemoryChart = document.getElementById("diskMemoryChart").getContext('2d');
+let ramChart = document.getElementById("ramChart").getContext('2d');
+let bandeChart = document.getElementById("bandeChart").getContext('2d');
 var endPoint =" api/info/{{ equipement.id }}";
-
 
 function lineChartConfig(optionParametersValues){
 	return {
        legend : { display : optionParametersValues.isLegendDisplay },
        title : {
         display : optionParametersValues.isTitleDisplay,
-        text : optionParametersValues.title
+        text : optionParametersValues.title        	
        },
        scales: {
             yAxes: [{
@@ -32,17 +25,16 @@ function lineChartConfig(optionParametersValues){
             xAxes: [{
               display: false
             }]
-        }
-	};
+        }		
+	};  
 }
 
-function ajaxDataGetter(){
+function ajaxDataGetter(equipementURL){
 	$.ajax({
 		method :'GET',
-		url: endPoint,
+		url: equipementURL,
 		success: function(data){
-		    console.log(data.cpuInfo);
-			getData(data.cpuInfo);
+			return data;
 		},
 		error: function(){
 			console.log("Error....")
@@ -56,9 +48,9 @@ function createLineChart(element, chartParametersValues){
 		data: {
     		labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
 		    datasets: [
-		      {
+		      { 
 		        data: [],
-		        label: chartParametersValues.data.label,
+		        label: chartParametersValues.data.Label,
 		        borderColor: "#3e95cd",
 		        fill: false,
 		        pointRadius: 2,
@@ -89,61 +81,26 @@ lineChartParametersValues = {
 let contextChartLine1 = createLineChart(cpuChart, lineChartParametersValues); //CPU Initialization
 
 
-var getData = function(ajaxData) {
+var getData = function() {
+
+  let ajaxData = ajaxDataGetter(endPoint);
+
+
 
   //CPU Chart Section Start
   let onlyLineOfChartLine1 = contextChartLine1.data.datasets[0];
   let dataOfOnlyLineOfChartLine1 = onlyLineOfChartLine1.data;
-
+  
   if (dataOfOnlyLineOfChartLine1.length >= 50) {
     dataOfOnlyLineOfChartLine1.pop();
     onlyLineOfChartLine1.pointBackgroundColor.pop();
   }
-  let theData = ajaxData;
-  dataOfOnlyLineOfChartLine1.unshift(theData);
-  console.log(theData);
+  dataOfOnlyLineOfChartLine1.unshift(ajaxData.cpuData);
 
   onlyLineOfChartLine1.pointBackgroundColor.unshift("#"+Math.floor(Math.random()*16777215).toString(16));
-  //CPU Chart Section End
+  //CPU Chart Section End 
+  
 
-    console.error(ajaxData)
-  contextChartLine1.update();
-
+  myChart.update();
+ 
 }
-
-setInterval(ajaxDataGetter, 1000);
-        </script>
-
-
-
-
-    {% endblock %}
-
-{% block content %}
-    {% if messages %}
-                    <ul class="messages">
-                    {% for message in messages %}
-                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-    {% endif %}
-       <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="Chart"></canvas>
-</div>
-
-     <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="cpuChart"></canvas>
-</div>
-
-    <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="ramChart"></canvas>
-</div>
-     <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-    <canvas id="byteChart"></canvas>
-</div>
-     <div class="chart-container" style="position: relative; height:40vh; width:40vw" onclick="rand_value()">
-    <canvas id="bandeChart"></canvas>
-</div>
-
-
-{% endblock %}

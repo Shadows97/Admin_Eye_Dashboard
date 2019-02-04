@@ -46,6 +46,12 @@ class Ram_info (models.Model) :
     ram_used = models.BigIntegerField()
     equipement = models.ForeignKey(Equipement, on_delete=models.CASCADE)
 
+class Alert (models.Model) :
+    titre = models.CharField(max_length=20)
+    message = models.CharField(max_length=500)
+    status = models.BooleanField()
+    equipement = models.ForeignKey(Equipement, on_delete=models.CASCADE)
+
 
 
 

@@ -4,7 +4,7 @@
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h1>
-                    <a href="index.html">Modernize</a>
+                    <a href="index.html">AdminEYE</a>
                 </h1>
                 <span>M</span>
             </div>
@@ -43,63 +43,7 @@
 
             </ul>
         </nav>
-<!--
-                <li>
-                    <a href="charts.html">
-                        <i class="fas fa-chart-pie"></i>
-                        Charts
-                    </a>
-                </li>
-                <li>
-                    <a href="grids.html">
-                        <i class="fas fa-th"></i>
-                        Grid Layouts
-                    </a>
-                </li>
-                <li>
-                    <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false">
-                        <i class="far fa-file"></i>
-                        Pages
-                        <i class="fas fa-angle-down fa-pull-right"></i>
-                    </a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu1">
-                        <li>
-                            <a href="404.html">404</a>
-                        </li>
-                        <li>
-                            <a href="500.html">500</a>
-                        </li>
-                        <li>
-                            <a href="blank.html">Blank</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="mailbox.html">
-                        <i class="far fa-envelope"></i>
-                        Mailbox
-                        <span class="badge badge-secondary float-md-right bg-danger">5 New</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="widgets.html">
-                        <i class="far fa-window-restore"></i>
-                        Widgets
-                    </a>
-                </li>
-                <li>
-                    <a href="pricing.html">
-                        <i class="fas fa-table"></i>
-                        Pricing Tables
-                    </a>
-                </li>
 
-                <li>
-                    <a href="maps.html">
-                        <i class="far fa-map"></i>
-                        Maps
-                    </a>
-                </li> -->
 
             </ul>
         </nav>
@@ -123,50 +67,25 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
                                 <i class="far fa-bell"></i>
-                                <span class="badge">4</span>
+                                <span class="badge" id="notif"></span>
                             </a>
                             <div class="dropdown-menu top-grid-scroll drop-1">
                                 <h3 class="sub-title-w3-agileits">User notifications</h3>
-                                <a href="#" class="dropdown-item mt-3">
+                                {% for alert in notif  %}
+                                    <a href="#" class="dropdown-item mt-3">
                                     <div class="notif-img-agileinfo">
-                                        <img src="{% static 'images/clone.jpg' %}" class="img-fluid" alt="Responsive image">
+                                         {{ alert.titre }}
                                     </div>
                                     <div class="notif-content-wthree">
                                         <p class="paragraph-agileits-w3layouts py-2">
-                                            <span class="text-diff">John Doe</span> Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+                                            <span class="text-diff">{{ alert.message }}</span> </p>
                                         <h6>4 mins ago</h6>
                                     </div>
                                 </a>
-                                <a href="#" class="dropdown-item mt-3">
-                                    <div class="notif-img-agileinfo">
-                                        <img src="{% static 'images/clone.jpg' %}" class="img-fluid" alt="Responsive image">
-                                    </div>
-                                    <div class="notif-content-wthree">
-                                        <p class="paragraph-agileits-w3layouts py-2">
-                                            <span class="text-diff">Diana</span> Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-                                        <h6>6 mins ago</h6>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item mt-3">
-                                    <div class="notif-img-agileinfo">
-                                        <img src="{% static 'images/clone.jpg' %}" class="img-fluid" alt="Responsive image">
-                                    </div>
-                                    <div class="notif-content-wthree">
-                                        <p class="paragraph-agileits-w3layouts py-2">
-                                            <span class="text-diff">Steffie</span> Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-                                        <h6>12 mins ago</h6>
-                                    </div>
-                                </a>
-                                <a href="#" class="dropdown-item mt-3">
-                                    <div class="notif-img-agileinfo">
-                                        <img src="{% static 'images/clone.jpg' %}" class="img-fluid" alt="Responsive image">
-                                    </div>
-                                    <div class="notif-content-wthree">
-                                        <p class="paragraph-agileits-w3layouts py-2">
-                                            <span class="text-diff">Jack</span> Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
-                                        <h6>1 days ago</h6>
-                                    </div>
-                                </a>
+
+                                {% endfor %}
+
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">view all notifications</a>
                             </div>

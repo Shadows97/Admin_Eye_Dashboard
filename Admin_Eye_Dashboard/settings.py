@@ -25,7 +25,7 @@ SECRET_KEY = '6map-or!kw6z+qmz&m+qf^2y9sqd60f_jfvg(#$8m7_g9d@)sf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'Admin_Eye_Dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'admin_eyedb',
+        'NAME': 'admin_eye_db',
         'USER': 'postgres',
         'PASSWORD':'passe',
         'HOST':'localhost',
@@ -129,7 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = os.path.join(BASE_DIR,'/static/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
