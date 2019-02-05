@@ -20,6 +20,8 @@ def login(request):
         if user.password == password:
             request.session['user_id'] = user.id
             request.session.set_expiry(3600)
+            Historique.objects.create(browser=request.user_agent.browser.family,
+                                      utilisateur=user)
             response = redirect('dashborad:index')
         else:
             messages.error(request, message)
@@ -55,11 +57,45 @@ def index (request):
         if id:
             user = Utilisateur.objects.get(id=id)
             alerts = Alert.objects.filter(status=False)
+            userNombre = Utilisateur.objects.filter(etat=True).count()
+            equipementNombre = Equipement.objects.count()
             context = {
                 'user': user,
                 'notif':alerts,
+                'userNombre':userNombre,
+                'equipementNombre':equipementNombre,
             }
             response = render(request, "index.html", context)
+    except KeyError:
+        response = redirect('dashborad:login')
+
+    return response
+
+def userActifNombre(request):
+    userNombre = Utilisateur.objects.filter(etat=True).count()
+    data = {
+        'userNombre':userNombre,
+    }
+    return JsonResponse(data)
+
+
+def showsHistorique (request):
+    response = redirect('dashborad:login')
+    print("browser === "+ str(request.user_agent.browser.family))
+    try:
+        id = request.session['user_id']
+        print("id "+str(id))
+        if id:
+            user = Utilisateur.objects.get(id=id)
+            alerts = Alert.objects.filter(status=False)
+            historique = Historique.objects.filter(utilisateur=user)
+            context = {
+                'user': user,
+                'notif':alerts,
+                'historique':historique,
+
+            }
+            response = render(request, "historique/userHistorique.html", context)
     except KeyError:
         response = redirect('dashborad:login')
 
@@ -211,6 +247,36 @@ def getAlert(request):
 
     }
     return JsonResponse(alertsData)
+
+def getTotalBandswitch(request):
+    bande = 0.0
+    equipements = Equipement.objects.filter(etat=True)
+    for equipement in equipements:
+        network = Interface_data_info.objects.filter(equipement=equipement).last()
+        bande += network.byte_send + network.byte_recv
+    data = {
+        'bande':bande,
+    }
+    return JsonResponse(data)
+
+def pingEquipement(request):
+    equipements = Equipement.objects.all()
+    for equipement in equipements:
+        ping(equipement.adresse_ip)
+
+    data = {
+        'succes':"succes"
+    }
+
+    return JsonResponse(data)
+
+def getEtat(request,id):
+    etat = Equipement.objects.get(id=id).etat
+    data = {
+        'etat':etat,
+    }
+    return JsonResponse(data)
+
 
 def equipementDetail(request,id) :
     response = None

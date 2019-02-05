@@ -1,5 +1,7 @@
 import socket
 import sys
+import subprocess
+from Dashboard.models import Equipement
 
 
 def bytes2human(n):
@@ -55,4 +57,19 @@ def portScan (host):
         sys.exit()
 
     return rapport
+
+def ping(host):
+    res = subprocess.call(['ping', '-c', '3', host])
+    if res == 0:
+        equipement = Equipement.objects.get(adresse_ip=host)
+        equipement.etat = True
+        Equipement.save(equipement)
+    elif res == 2:
+        equipement = Equipement.objects.get(adresse_ip=host)
+        equipement.etat = False
+        Equipement.save(equipement)
+    else:
+        equipement = Equipement.objects.get(adresse_ip=host)
+        equipement.etat = False
+        Equipement.save(equipement)
 

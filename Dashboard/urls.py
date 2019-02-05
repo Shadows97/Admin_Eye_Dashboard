@@ -24,5 +24,11 @@ urlpatterns = [
     path ('users/profile/notification/nombre',views.getAlert,name = 'notification'),
     path ('users/show/<id>/notification/nombre',views.getAlert,name = 'notification'),
     path ('users/all/notification/nombre',views.getAlert,name = 'notification'),
+    path ('bandeTotal',views.getTotalBandswitch,name = 'bandeTotal'),
+    path ('ping',views.pingEquipement,name = 'ping'),
+    path ('equipements/all/ping',views.pingEquipement,name = 'ping'),
+    path ('equipements/all/etat/<id>',views.getEtat,name = 'etat'),
+    path ('historique',views.showsHistorique,name = 'historique'),
+    path ('userNombre',views.userActifNombre,name = 'userNombre'),
 
 ]

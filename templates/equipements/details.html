@@ -23,11 +23,27 @@ function lineChartConfig(optionParametersValues){
             yAxes: [{
                 id: 'first-y-axis',
                 type: 'linear',
-                display: false
+                display: false,
+                ticks: {
+                  max:optionParametersValues.max,
+                  beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: optionParametersValues.labelString
+                }
             }, {
                 id: 'second-y-axis',
                 type: 'linear',
-                position: 'left'
+                position: 'left',
+                ticks: {
+                  max:optionParametersValues.max,
+                  beginAtZero: true
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: optionParametersValues.labelString
+                }
             }],
             xAxes: [{
               display: false
@@ -81,7 +97,8 @@ lineChartParametersValues = {
 	chartOptionValues:{
 		isLegendDisplay: true,
 		isTitleDisplay: true,
-		title: "Historique d'utilisation du CPU"
+		title: "Historique d'utilisation du CPU",
+        labelString: "Frequence"
 	}
 }
 

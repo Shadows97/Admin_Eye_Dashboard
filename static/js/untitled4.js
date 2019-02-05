@@ -1,16 +1,16 @@
+ let cpuChart = document.getElementById("bandeTotal");
+let diskMemoryChart = document.getElementById("diskMemoryChart");
+let ramChart = document.getElementById("ramChart");
+let bandeChart = document.getElementById("bandeChart");
+var endPoint =" bandeTotal";
 
-let cpuChart = document.getElementById("cpuChart").getContext('2d');
-let diskMemoryChart = document.getElementById("diskMemoryChart").getContext('2d');
-let ramChart = document.getElementById("ramChart").getContext('2d');
-let bandeChart = document.getElementById("bandeChart").getContext('2d');
-var endPoint =" api/info/{{ equipement.id }}";
 
 function lineChartConfig(optionParametersValues){
 	return {
        legend : { display : optionParametersValues.isLegendDisplay },
        title : {
         display : optionParametersValues.isTitleDisplay,
-        text : optionParametersValues.title        	
+        text : optionParametersValues.title
        },
        scales: {
             yAxes: [{
@@ -25,16 +25,17 @@ function lineChartConfig(optionParametersValues){
             xAxes: [{
               display: false
             }]
-        }		
-	};  
+        }
+	};
 }
 
-function ajaxDataGetter(equipementURL){
+function ajaxDataGetter(){
 	$.ajax({
 		method :'GET',
-		url: equipementURL,
+		url: endPoint,
 		success: function(data){
-			return data;
+		    console.log(data.cpuInfo);
+			getData(data.bande);
 		},
 		error: function(){
 			console.log("Error....")
@@ -48,9 +49,9 @@ function createLineChart(element, chartParametersValues){
 		data: {
     		labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
 		    datasets: [
-		      { 
+		      {
 		        data: [],
-		        label: chartParametersValues.data.Label,
+		        label: chartParametersValues.data.label,
 		        borderColor: "#3e95cd",
 		        fill: false,
 		        pointRadius: 2,
@@ -68,12 +69,12 @@ function createLineChart(element, chartParametersValues){
 
 lineChartParametersValues = {
 	data:{
-		label:"CPU%"
+		label:"Bande Passante"
 	},
 	chartOptionValues:{
 		isLegendDisplay: true,
 		isTitleDisplay: true,
-		title: "Historique d'utilisation du CPU"
+		title: "Historique d'utilisation totale de la Bande Passante "
 	}
 }
 
@@ -81,26 +82,26 @@ lineChartParametersValues = {
 let contextChartLine1 = createLineChart(cpuChart, lineChartParametersValues); //CPU Initialization
 
 
-var getData = function() {
-
-  let ajaxData = ajaxDataGetter(endPoint);
-
-
+var getData = function(ajaxData) {
 
   //CPU Chart Section Start
   let onlyLineOfChartLine1 = contextChartLine1.data.datasets[0];
   let dataOfOnlyLineOfChartLine1 = onlyLineOfChartLine1.data;
-  
+
   if (dataOfOnlyLineOfChartLine1.length >= 50) {
     dataOfOnlyLineOfChartLine1.pop();
     onlyLineOfChartLine1.pointBackgroundColor.pop();
   }
-  dataOfOnlyLineOfChartLine1.unshift(ajaxData.cpuData);
+  let theData = ajaxData;
+  dataOfOnlyLineOfChartLine1.unshift(theData);
+  console.log(theData);
 
   onlyLineOfChartLine1.pointBackgroundColor.unshift("#"+Math.floor(Math.random()*16777215).toString(16));
-  //CPU Chart Section End 
-  
+  //CPU Chart Section End
 
-  myChart.update();
- 
+    console.error(ajaxData)
+  contextChartLine1.update();
+
 }
+
+setInterval(ajaxDataGetter, 1000);

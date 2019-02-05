@@ -11,7 +11,6 @@ class Utilisateur(models.Model) :
 
 class Moniteur(models.Model):
     nom = models.CharField(max_length=50)
-    version = models.CharField(max_length=50)
     utilisateur = models.ForeignKey(Utilisateur,on_delete=models.CASCADE)
 
 class Equipement(models.Model) :
@@ -51,6 +50,11 @@ class Alert (models.Model) :
     message = models.CharField(max_length=500)
     status = models.BooleanField()
     equipement = models.ForeignKey(Equipement, on_delete=models.CASCADE)
+
+class Historique (models.Model) :
+    browser = models.CharField(max_length=20)
+    date_connexion = models.DateTimeField(auto_now_add=True)
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
 
 
 

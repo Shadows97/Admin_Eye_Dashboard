@@ -1,0 +1,43 @@
+{% extends 'model.html' %}
+{% load static %}
+
+{% block title %}Historique de connexion{% endblock %}
+
+{% block content %}
+    {% if messages %}
+                    <ul class="messages">
+                    {% for message in messages %}
+                        <li {% if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+
+
+    {% endif %}
+
+
+    <div class="outer-w3-agile mt-3">
+                    <h4 class="tittle-w3-agileits mb-4">Historique de connexion</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">Navigateur</th>
+                                <th scope="col">Date de connexion</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                          {% for historik in historique %}
+                                <tr>
+                                    <td>{{ historik.browser }}</td>
+                                <td>{{ historik.date_connexion }}</td>
+                            </tr>
+                           {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+{% endblock %}

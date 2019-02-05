@@ -30,12 +30,12 @@
                                 </thead>
                         <tbody>
                            {% for equipement in equipements %}
-                                <tr class="{% if equipement.etat %} table-success{% else %}table-danger{% endif %}">
+                                <tr id="ligne" class="{% if equipement.etat %} table-success{% else %}table-danger{% endif %}" onmousemove="changeEtat({{ equipement.id }})">
                                 <th scope="row">{{ equipement.id }}</th>
                                 <td>{{ equipement.nom }}</td>
                                 <td>{{ equipement.adresse_ip }}</td>
                                 <td>{{ equipement.adresse_mac }}</td>
-                                <td>{% if equipement.etat %} Actif{% else %}Inatif{% endif %}</td>
+                                <td id="etat">{% if equipement.etat %} Actif{% else %}Inatif{% endif %}</td>
                                  <td><a href="{% url 'dashborad:equipementDetails' id=equipement.id%}"class="btn btn-outline-info">Détaile</a> <a href="{% url 'dashborad:equipementPortScan' id=equipement.id%}"class="btn btn-dark">Scan Port</a></td>
 
                             </tr>
